@@ -1,8 +1,8 @@
-import math
 from sre_compile import isstring
 from turtle import back
-import numpy as np
 
+import numpy as np
+import math
 
 def axis_rotation(angle, axis):
     """
@@ -43,11 +43,6 @@ def axis_rotation(angle, axis):
     else:
         print("Error")
 
-#print(axis_rotation(60, 'x'))
-#print(axis_rotation(60, 'y'))
-#print(axis_rotation(60, 'z'))
-
-
 
 
 def custom_axis_rotation(angle, axis_vector):
@@ -72,8 +67,7 @@ def custom_axis_rotation(angle, axis_vector):
 
     #Normalizes the axis vector
     axis_vector_norm = axis_vector / np.linalg.norm(axis_vector)
-    
-    
+
     v = 1 - c
    
    #Define x, y, z of normalized vector
@@ -101,19 +95,14 @@ def custom_axis_rotation(angle, axis_vector):
     return custom_axis_rotation_matrix
 
 
-#print (custom_axis_rotation(60, np.array([5, 25, 35])))
-
-
-def transform(angle, axis, pos):
+def custom_transform(angle, axis, pos):
     """
     Takes in an angle in degrees and rotation axis of the base frame or custom axis vector to rotate around
     and the subsequent 1x3 translation vector  and returns the transform rotation matrix.
-
         Parameters:
                 angle (float): Angle of rotation
                 axis (np.array or str): Custom Axis of rotation vector array ([0, 0, 0]) or str for axis of rotation ('x','y', or 'z')
                 pos (np.array): Translation vector in a 1x3 matrix
-
         Returns:
                 Rotation transform matrix of a angle about rotation axis of the base frame or custom axis vector of rotation by the custom translation vector entered
     """
@@ -132,8 +121,3 @@ def transform(angle, axis, pos):
                                  (r_m[2,0], r_m[2,1], r_m[2,2], t_v[2]),
                                  (0, 0, 0, 1)], dtype=float)
     return transform_matrix
-
-print(transform(60, 'x', np.array([5, 25, 35])))
-
-
-print (transform(60, np.array([5, 5, 5]), np.array([5, 25, 35])))
