@@ -57,12 +57,12 @@ def custom_axis_rotation(angle, axis_vector):
                 Rotation matrix of angle about custom axis vector of rotation entered
     """
 
-      #convert angle from degrees to radians
+    #convert angle from degrees to radians
     angle_rad = math.radians(angle)
     
     #Define s as sin(angle in radians)
     s = np.sin(angle_rad)
-    #Define c as sin(angle in radians)
+    #Define c as cos(angle in radians)
     c = np.cos(angle_rad)
 
     #Normalizes the axis vector
@@ -121,3 +121,51 @@ def custom_transform(angle, axis, pos):
                                  (r_m[2,0], r_m[2,1], r_m[2,2], t_v[2]),
                                  (0, 0, 0, 1)], dtype=float)
     return transform_matrix
+
+
+
+
+def link_transform(alpha, a, d, theta):
+
+    #convert angle theta from degrees to radians
+    angle_t_rad = math.radians(theta)
+    #convert angle alpha from degrees to radians
+    angle_a_rad = math.radians(alpha)
+    
+    #Define s_t as sin of theta (angle in radians)
+    s_t = np.sin(angle_t_rad)
+    #Define c_t as cos of theta (angle in radians)
+    c_t = np.cos(angle_t_rad)
+
+    #Define s_a as sin of alpha (angle in radians)
+    s_a = np.sin(angle_a_rad)
+    #Define c_a as cos of alpha (angle in radians)
+    c_a = np.cos(angle_a_rad)
+
+
+    #Define Matrix variable calulations 
+    aa = c_t
+    ab = -s_t
+    ac = 0
+    ad = a
+
+    ba = s_t*c_a
+    bb = c_t*c_a
+    bc = -s_a
+    bd = -s_a*d
+
+    ca = s_t*s_a
+    cb = c_t*s_a
+    cc = c_a
+    cd = c_a*d
+
+    da = 0
+    db = 0
+    dc = 0
+    dd = 1
+
+    link_t_matrix = np.array([(aa, ab, ac, ad),
+                              (ba, bb, bc, bd),
+                              (ca, cb, cc, cd),
+                              (da, db, dc, dd)])
+    return link_t_matrix
